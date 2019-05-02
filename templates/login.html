@@ -1,23 +1,36 @@
 <html>
 	<head>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-		</script>
-		<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-		</script>
+  	<meta name="google-signin-client_id" content="225958608522-m6blhvi48jtpaftvud2ljbr5ljbk54lb.apps.googleusercontent.com">
 	</head>
 
 	<body>
-		<div id="signinButton">
-			<span class="g-signin"
-				data-scope="openid"
-				data-clientid="225958608522-m6blhvi48jtpaftvud2ljbr5ljbk54lb.apps.googleusercontent.com"
-				data-redirecturi="postmessage"
-				data-accesstype="offline"
-				data-cookiepolicy="single_host_origin"
-				data-callback="signInCallback"
-				data-approvalprompt="force">
-			</span>
-		</div>
-		<div id="result"></div>
+	  <div id="signinButton"></div>
+	  <script>
+	    function onSuccess(googleUser)
+			{
+	      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+				console.log(googleUser.getBasicProfile())
+	    }
+
+	    function onFailure(error)
+			{
+	      console.log(error);
+	    }
+	    function renderButton()
+			{
+	      gapi.signin2.render('signinButton',
+				{
+	        'scope': 'profile email',
+	        'width': 240,
+	        'height': 50,
+	        'longtitle': true,
+	        'theme': 'dark',
+	        'onsuccess': onSuccess,
+	        'onfailure': onFailure
+	      });
+	    }
+	  </script>
+
+	  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 	</body>
 </html>
